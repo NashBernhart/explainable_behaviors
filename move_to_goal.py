@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#!/usr/bin/python3
 
 import rospy
 from geometry_msgs.msg import Twist
@@ -58,13 +58,13 @@ class Turtlebot:
     # Get distance to goal pose
     def euclidian_distance(self):
 
-        return sqrt(pow((self.goal_pose.point.x - self.pose.point.x), 2) + pow((self.goal_pose.point.y - self.pose.point.y), 2))
+        return sqrt(pow((self.goal_pose.position.x - self.pose.position.x), 2) + pow((self.goal_pose.position.y - self.pose.position.y), 2))
     
 
     # Get angle difference between current pose and goal pose
     def angle_to_goal(self):
 
-        return atan2(self.goal_pose.point.y - self.pose.point.y, self.goal_pose.point.x - self.pose.point.x)
+        return atan2(self.goal_pose.position.y - self.pose.position.y, self.goal_pose.position.x - self.pose.position.x)
     
     # Get angle difference to orient to final pose
     def diff_between_yaw(self):
@@ -144,9 +144,6 @@ class Turtlebot:
 
 
 if __name__ == '__main__':
+    x = Turtlebot()
+    x.move_to_goal()
 
-    try:
-        x = Turtlebot()
-        x.move_to_goal()
-    except rospy.ROSInterruptException:
-        pass
