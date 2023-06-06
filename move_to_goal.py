@@ -86,8 +86,8 @@ class Turtlebot:
     def move_to_goal(self):
 
         goal = Pose()
-        goal.position.x = 10
-        goal.position.y = 10
+        goal.position.x = 10.0
+        goal.position.y = 10.0
         goal.position.z = 0
         goal.orientation.x = -0.03
         goal.orientation.y = -0.932
@@ -101,6 +101,13 @@ class Turtlebot:
 
         vel_msg = Twist()
 
+        print(self.pose)
+        print(goal)
+
+        print(self.angle_to_goal())
+        print(self.diff_between_yaw())
+        print(self.euclidian_distance())
+
         # First circle. Orient towards goal
         while self.angle_to_goal() >= ANGLE_TOLERANCE:
             vel_msg.linear.x = 0
@@ -109,6 +116,7 @@ class Turtlebot:
             vel_msg.angular.x = 0
             vel_msg.angular.y = 0
             vel_msg.angular.z = self.angular_vel(self.angle_to_goal())
+            print(vel_msg.angular.z)
             self.velocity_publisher.publish(vel_msg)
             self.rate.sleep()
         vel_msg.angular.z = 0
@@ -129,6 +137,7 @@ class Turtlebot:
 
         # Third circle. Orient towards goal pose angle
         while self.angle_to_goal() >= ANGLE_TOLERANCE:
+            print("made it here")
             vel_msg.linear.x = 0
             vel_msg.linear.y = 0
             vel_msg.linear.z = 0
